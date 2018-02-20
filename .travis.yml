@@ -23,23 +23,17 @@ script:
   - cd hello-world && npm test && cd -
 
 before_deploy:
-  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash > /dev/null; fi
-  - source /home/travis/google-cloud-sdk/path.bash.inc
-  - gcloud --quiet version
-  - gcloud --quiet components update
+  - npm install -g serverless
+  - serverless --version
 
   # use the decrypted service account credentials to authenticate the command line tool
   # get the encrypted variable names from travis cli: https://docs.travis-ci.com/user/encrypting-files/
   - openssl aes-256-cbc -K $encrypted_ec542ec26cc7_key -iv $encrypted_ec542ec26cc7_iv -in goog-caseywest-7fd69b9aa3b0.json.enc -out goog-caseywest-7fd69b9aa3b0.json -d
-  - gcloud auth activate-service-account --key-file goog-caseywest-7fd69b9aa3b0.json
-
-  - gcloud config set project goog-caseywest
 
 deploy:
   - provider: script
     script:
-      # change PROJECT and REPO to the values from the cloud console: https://console.cloud.google.com/code/develop
-      - gcloud --quiet beta functions deploy helloWorld --source https://source.developers.google.com/projects/goog-caseywest/repos/cloud-functions-sdlc/moveable-aliases/master/paths/hello-world --trigger-http
+      - cd hello-world && serverless deploy && cd -
     skip_cleanup: true
     on:
       branch: master

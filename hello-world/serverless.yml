@@ -4,7 +4,7 @@ provider:
   name: google
   runtime: nodejs
   project: goog-caseywest
-  credentials: ~/.service-account-keys/goog-caseywest-7fd69b9aa3b0.json
+  credentials: ../goog-caseywest-7fd69b9aa3b0.json
 
 plugins:
   - serverless-google-cloudfunctions
