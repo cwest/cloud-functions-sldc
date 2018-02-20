@@ -1,0 +1,16 @@
+service: cloud-functions-sdlc
+
+provider:
+  name: google
+  runtime: nodejs
+  project: goog-caseywest
+  credentials: ~/.service-account-keys/goog-caseywest-7fd69b9aa3b0.json
+
+plugins:
+  - serverless-google-cloudfunctions
+
+functions:
+  helloWorld:
+    handler: helloWorld
+    events:
+      - http: path
