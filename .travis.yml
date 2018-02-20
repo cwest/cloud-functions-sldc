@@ -39,7 +39,7 @@ deploy:
   - provider: script
     script:
       # change PROJECT and REPO to the values from the cloud console: https://console.cloud.google.com/code/develop
-      - gcloud --quiet beta functions deploy helloWorld --source-url https://source.developers.google.com/p/goog-caseywest/r/cloud-functions-sdlc --source-path /hello-world --trigger-http
+      - gcloud --quiet beta functions deploy helloWorld --source https://source.developers.google.com/projects/goog-caseywest/repos/cloud-functions-sdlc/moveable-aliases/master/paths/hello-world --trigger-http
     skip_cleanup: true
     on:
       branch: master
